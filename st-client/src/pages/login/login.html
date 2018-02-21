@@ -1,0 +1,41 @@
+<ion-content>
+  <ion-card class="img-margins">
+    <img src="assets/img/logo.png" />
+    <ion-card-content>
+      <ion-card-title>
+        Travel...!
+      </ion-card-title>
+      <p>
+        “Traveling – it leaves you speechless, then turns you into a storyteller.”
+      </p>
+    </ion-card-content>
+  </ion-card>
+
+  <div class="login-box">
+    <form (ngSubmit)="login()" #loginForm="ngForm">
+      <ion-row>
+        <ion-col>
+          <ion-list inset>
+
+            <ion-item>
+              <ion-input type="text" placeholder="Email" name="email" [(ngModel)]="loginCredentials.email" required></ion-input>
+            </ion-item>
+
+            <ion-item>
+              <ion-input type="password" placeholder="Password" name="password" [(ngModel)]="loginCredentials.password" required></ion-input>
+            </ion-item>
+
+          </ion-list>
+        </ion-col>
+      </ion-row>
+
+      <ion-row class="buton-align">
+        <ion-col>
+          <button ion-button class="submit-btn" full type="submit" [disabled]="!loginForm.form.valid">Login</button>
+          <button ion-button class="register-btn" type="button" block clear (click)="createAccount()">Create New Account</button>
+        </ion-col>
+      </ion-row>
+
+    </form>
+  </div>
+</ion-content>

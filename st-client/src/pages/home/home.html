@@ -1,0 +1,74 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Most Common</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="card-background-page">
+
+  <ion-card>
+    <img src="assets/img/sofia.jpg" (click)="onImgClick(currentCity,'Sofia');" class="img-card" />
+    <div class="card-title">Sofia</div>
+  </ion-card>
+
+  <ion-card>
+    <img src="assets/img/plovdiv.jpg" (click)="onImgClick(currentCity,'Plovdiv');" class="img-card" />
+    <div class="card-title">Plovdiv</div>
+  </ion-card>
+
+  <ion-card>
+    <img src="assets/img/varna.jpg" (click)="onImgClick(currentCity,'Varna');" class="img-card" />
+    <div class="card-title">Varna</div>
+  </ion-card>
+
+  <ion-card>
+    <img src="assets/img/burgas.jpg" (click)="onImgClick(currentCity,'Burgas');" class="img-card" />
+    <div class="card-title">Burgas</div>
+  </ion-card>
+
+  <ion-card>
+    <img src="assets/img/stara-zagora.jpg" (click)="onImgClick(currentCity,'Stara Zagora');" class="img-card" />
+    <div class="card-title">Stara Zagora</div>
+  </ion-card>
+
+  <ion-card>
+    <img src="assets/img/ruse.jpg" (click)="onImgClick(currentCity,'Ruse');" class="img-card" />
+    <div class="card-title">Ruse</div>
+    <div class="card-subtitle">18 Listings</div>
+  </ion-card>
+
+  <ion-card>
+    <img src="assets/img/pleven.jpg" (click)="onImgClick(currentCity,'Pleven');" class="img-card" />
+    <div class="card-title">Pleven</div>
+  </ion-card>
+
+  <ion-card>
+    <img src="assets/img/veliko-tyrnovo.jpg" (click)="onImgClick(currentCity,'Veliko Tyrnovo');" class="img-card" />
+    <div class="card-title">Veliko Tyrnovo</div>
+  </ion-card>
+
+  <ion-card>
+    <img src="assets/img/blagoevgrad.jpg" (click)="onImgClick(currentCity,'Blagoevgrad');" class="img-card" />
+    <div class="card-title">Blagoevgrad</div>
+  </ion-card>
+
+</ion-content>
+
+<ion-footer>
+  <ion-navbar>
+    <ion-segment [(ngModel)]='selectedTab' color="primary">
+      <ion-segment-button value="post" (click)="goToPostPage();">
+        Post
+      </ion-segment-button>
+      <ion-segment-button value="search" (click)="goToSearchPage();">
+        Search
+      </ion-segment-button>
+      <ion-segment-button value="user" (click)="goToUserPage();">
+        User
+      </ion-segment-button>
+      <ion-segment-button value="home">
+        Home
+      </ion-segment-button>
+    </ion-segment>
+  </ion-navbar>
+</ion-footer>
