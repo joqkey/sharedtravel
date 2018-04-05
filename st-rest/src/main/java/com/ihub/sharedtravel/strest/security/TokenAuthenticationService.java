@@ -1,16 +1,18 @@
 package com.ihub.sharedtravel.strest.security;
 
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 
 public class TokenAuthenticationService {
     static final long EXPIRATIONTIME = 864000000; // 10 days
@@ -38,7 +40,7 @@ public class TokenAuthenticationService {
                     .parseClaimsJws(token.replace(TOKEN_PREFIX, ""))
                     .getBody()
                     .getSubject();
-            List<GrantedAuthority> auth = new ArrayList();
+            List<GrantedAuthority> auth = new ArrayList<GrantedAuthority>();
 
             return user != null ?
                     new UsernamePasswordAuthenticationToken(user, null, auth):

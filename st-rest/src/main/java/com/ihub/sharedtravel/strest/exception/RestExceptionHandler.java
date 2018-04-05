@@ -26,4 +26,5 @@ public class RestExceptionHandler {
         //technicalLog.error("OapRestExceptionHandler: " + exception.getMessage() + System.lineSeparator() + errorInfo);
         return exInfo;
     }
+    
 }

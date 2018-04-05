@@ -1,21 +1,17 @@
 package com.ihub.sharedtravel.strest.security;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.servlet.FilterChain;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.ihub.sharedtravel.strest.model.UserInfo;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.crypto.codec.Base64;
 import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+
+import com.ihub.sharedtravel.strest.model.UserInfo;
 
 
 public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
