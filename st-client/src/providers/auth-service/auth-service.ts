@@ -27,7 +27,7 @@ export class AuthService {
   token: string[];
   authHeader: string;
   currentUser: User;
-  baseUrl = "http://192.168.0.14:8090";
+  baseUrl = "https://10.22.41.107:8090/travel";
 
   constructor(private http: Http, private alertController: AlertController, private loadingCtrl: LoadingController,
     private storage: Storage) {
@@ -55,6 +55,27 @@ export class AuthService {
       });
     });
 
+  }
+
+  public facebookLogin(){
+    this.showLoading();
+    const headers = new Headers();
+    headers.append('Content-Type', 'text/plain');
+    headers.append('Access-Control-Allow-Origin', '*');
+    return new Promise((resolve, reject) => {
+      this.http.post(this.baseUrl + '/login/facebook/', { headers: headers }).subscribe(data => {
+        this.authHeader = data.headers.toJSON().authorization + '';
+        //this.token = this.authHeader.split(' ');
+        this.authenticationSuccess(this.authHeader);
+        this.dismissLoading();
+        resolve(this.authHeader);
+        reject('');
+      }, error => {
+        console.log(error);
+        this.dismissLoading();
+        this.popUpWrongCredentialsMessage(error);
+      });
+    });
   }
 
   public register(credentials) {

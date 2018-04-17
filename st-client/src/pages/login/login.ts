@@ -12,7 +12,7 @@ import { HomePage } from '../../pages/home/home';
 export class LoginPage {
   loading: Loading;
   loginCredentials = { email: '', password: '' };
- 
+
   constructor(private nav: NavController, private auth: AuthService, private alertCtrl: AlertController, private loadingCtrl: LoadingController) {
     this.nav = nav;
   }
@@ -22,17 +22,28 @@ export class LoginPage {
   }
 
   public login() {
-   // this.showLoading();
+    // this.showLoading();
     this.auth.login(this.loginCredentials).then((value) => {
-        //SUCCESS
-        this.pageChange();
+      //SUCCESS
+      this.pageChange();
     }, (error) => {
-        //FAILURE
-        this.loading.dismiss();
-        console.log(error);
+      //FAILURE
+      this.loading.dismiss();
+      console.log(error);
     });
   }
-  
+
+  public facebookLogin() {
+    this.auth.facebookLogin().then((value) => {
+      //SUCCESS
+      this.pageChange();
+    }, (error) => {
+      //FAILURE
+      this.loading.dismiss();
+      console.log(error);
+    });
+  }
+
   pageChange() {
     this.nav.setRoot(HomePage);
   }

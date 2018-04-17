@@ -3,12 +3,12 @@ package com.ihub.sharedtravel.strest.security;
 import javax.servlet.Filter;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.oauth2.resource.ResourceServerProperties;
 import org.springframework.boot.autoconfigure.security.oauth2.resource.UserInfoTokenServices;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
 import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -22,14 +22,13 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableOAuth2Client;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import com.ihub.sharedtravel.strest.service.UserServiceImpl;
 
-@SpringBootApplication
 @EnableOAuth2Client
-@RestController
 @EnableAuthorizationServer
+@Configuration
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
@@ -41,7 +40,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.csrf().disable().antMatcher("/**").authorizeRequests()
-				.antMatchers("/", "/login", "/login/facebook", "/logout", "/webjars/**").permitAll().anyRequest()
+				.antMatchers("/", "/login", "/login/facebook/", "/logout", "/webjars/**").permitAll().anyRequest()
 				.authenticated().and().logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
 				.logoutSuccessUrl("/").and().addFilterBefore(ssoFilter(), UsernamePasswordAuthenticationFilter.class)
 				.addFilterBefore(new JWTLoginFilter("/login", authenticationManager()),
@@ -51,7 +50,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	}
 
 	private Filter ssoFilter() {
-		OAuthFilter facebookFilter = new OAuthFilter("/login/facebook");
+		OAuthFilter facebookFilter = new OAuthFilter("/login/facebook/");
 		OAuth2RestTemplate facebookTemplate = new OAuth2RestTemplate(facebook(), oauth2ClientContext);
 		facebookFilter.setRestTemplate(facebookTemplate);
 		UserInfoTokenServices tokenServices = new UserInfoTokenServices(facebookResource().getUserInfoUri(),
@@ -87,5 +86,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 		auth.userDetailsService(userServiceImpl).passwordEncoder(encoder);
 	}
+	
+	 @Bean
+	    public InternalResourceViewResolver internalResourceViewResolver() {
+	        InternalResourceViewResolver resolver = new InternalResourceViewResolver();
+	        resolver.setPrefix("/jsp/");
+	        resolver.setSuffix(".jsp");
+	        return resolver;
+	    }
 
 }
